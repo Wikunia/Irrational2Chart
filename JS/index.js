@@ -2,13 +2,27 @@ var canvas = document.getElementById('myCanvas');
 var color_arr = new Array("#FFFFFF","#FFBB00","#FF4500","#FF0000","#D02090","#7B68EE","#0000FF","#7FFFD4","#00FF00","#ADFF2F");
 var sA = (Math.PI / 180) * 270, // start at the top (270°)
 	pA = (Math.PI / 180) * 36,  // one part is 360°/10 = 36°
-	dp, // number of digital place 
+	dp,	// number of digital place 
+	ld, // last digit (array (last digit, in a row) (5999 => last digit = 9,in a row = 3) 
 	mp = 350, // middle
-	br = 270, // big radius
+	br = 300, // big radius
 	sr = 250, // small radius
-	nods = GET("nods") ? GET("nods") : 750, // irrat_number of digits
-	irrat_name = GET("n") ? GET("n") : "pi";
+	nods = GET("nods") ? GET("nods") : 800, // irrat_number of digits
+	irrat_name = GET("n") ? GET("n") : "pi",
+	show_dots;
 var irrat_number,irrat_label;
+
+switch(GET("show_dots")) {
+	case "true":
+		show_dots = true;
+		break;
+	case "false":
+		show_dots = false;
+		sr = Math.floor((sr+br)/2);
+		break;
+	default:
+		show_dots = true;
+}
 	
 if (canvas && canvas.getContext) {
    var ctx = canvas.getContext("2d");
@@ -94,21 +108,41 @@ if (canvas && canvas.getContext) {
 	  		break;
 	  }
 	  
-	 
+	  ld = new Array('',0); // last digit not set and the sequence has the length 0
 	  if (nods >= 10000) { nods = 9999; alert("Showing only 9999 decimal places..."); }
 	  for (i = 0; i < nods; i++) {
 		  if (i != 1) { // decimal point
 			if (i == 0) {
-				line(1,parseInt(irrat_number.substr(i,1)),parseInt(irrat_number.substr(2,1)));
+				ld = line(1,parseInt(irrat_number.substr(i,1)),parseInt(irrat_number.substr(2,1)),ld);
 			} else {
-				line(i,parseInt(irrat_number.substr(i,1)),parseInt(irrat_number.substr(i+1,1)));
+				ld = line(i,parseInt(irrat_number.substr(i,1)),parseInt(irrat_number.substr(i+1,1)),ld);
 			}
 		  }
 	  }
     }
 }
 
-function line(dp,no_1,no_2) {
+function line(dp,no_1,no_2,ld) {
+	if (show_dots) {
+		if (no_2 == ld[0]) {
+			ld[1]++; // increment in a row
+		} else {
+			ld[1]++;
+			if (ld[1] >= 2) {
+				ctx.lineWidth = 1;
+				ctx.strokeStyle = color_arr[ld[0]];
+				ctx.beginPath();
+				ctx.fillStyle = color_arr[ld[0]];
+				ctx.arc(mp+((sr+br)/2)*Math.cos(sA+(ld[0]+(dp-ld[1]/2)/nods)*pA), mp+((sr+br)/2)*Math.sin(sA+(ld[0]+(dp-ld[1]/2)/nods)*pA), (ld[1]/15)*((br-sr)/2), 0, 2*Math.PI);
+				ctx.fill();
+				ctx.stroke();
+				ctx.closePath();
+			}
+			ld[1] = 0;
+			ld[0] = no_2;
+		}
+	}
+
 	var nod_1 = dp/nods; 
 	var nod_2 = (dp+1)/nods;
 	var quadcurve_int = middle(no_1+nod_1,no_2+nod_2); // get the middle of no_1+nod_1 and no_2+nod_2 (middle of 9 and 0 isn't 4.5 it's 9.5)
@@ -125,6 +159,7 @@ function line(dp,no_1,no_2) {
 	ctx.moveTo(mp+sr*Math.cos(sA+(no_1+nod_1)*pA), mp+sr*Math.sin(sA+(no_1+nod_1)*pA));
 	ctx.quadraticCurveTo(mp+0.7*sr*Math.cos(sA+(quadcurve_int)*pA), mp+0.7*sr*Math.sin(sA+(quadcurve_int)*pA)  ,mp+sr*Math.cos(sA+(no_2+nod_2)*pA),mp+sr*Math.sin(sA+(no_2+nod_2)*pA));
 	ctx.stroke();
+	return ld;
 }
 
 
