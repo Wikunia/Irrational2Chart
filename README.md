@@ -1,8 +1,7 @@
 Irrational2Chart
 =======
-*Simple visualize irrational numbers* 
-[github.wikunia.de/Table2Chart](http://github.wikunia.de/Irrational2Chart)
-Visualize numbers like: e,pi,golden_ration etc. 
+*Simple visualize irrational numbers like e and pi* 
+[github.wikunia.de/Irratinal2Chart](http://github.wikunia.de/Irrational2Chart)
 
 Get variables:
 
