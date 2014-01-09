@@ -18,6 +18,8 @@ Thanks [@LeaVerou](https://github.com/LeaVerou/prism) for your syntax highlighte
 
 Thanks [@Regaddi](https://github.com/Regaddi/Chart.js) for your tooltip function!
 
+Thanks [@eligrey](https://github.com/eligrey/FileSaver.js) for your FileSaver.js!
+
 License
 ======
 [MIT license] (http://opensource.org/licenses/MIT)

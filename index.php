@@ -1,14 +1,20 @@
 <html>
 <head>
 	<title>Visualization of an irrational number</title>
+	<link rel="stylesheet" href="CSS/styles.css" />
 	<link rel="stylesheet" href="highlighter/style.css" />
 	<link rel="stylesheet" href="highlighter/themes/prism-twilight.css" data-noprefix />
 	<script src="highlighter/prefixfree.min.js"></script>
+	<script type="text/javascript" src="JS/filesaver.js"></script>
+	<script type="text/javascript" src="JS/canvas-toBlob.js"></script>
 </head>
 <body style="background-color:black;">
 ´
-<canvas id="myCanvas" width="730" height="730">
+<canvas id="irrationalCanvas" width="730" height="730">
 </canvas>
+<br>
+<div class="button save" onclick="save()">Save as png</div>
+<br><br>
 <pre>
 	<code class="language-javascript">
 	<?php

@@ -1,4 +1,4 @@
-var canvas = document.getElementById('myCanvas');
+var canvas = document.getElementById('irrationalCanvas');
 /* Colors for 0 to 9 */
 var color_arr = new Array(	"#FFFFFF", 
 				"#FFBB00",
@@ -94,10 +94,10 @@ if (canvas && canvas.getContext) {
 	  ctx.fillStyle = "white";
 	  ctx.strokeStyle = "white";
 	  ctx.font = "italic 12pt Arial";
-	  if (i > 4 && i < 8) {
+	  if (i > 4 && i < 7) {
 		ctx.fillText(i.toString(), mp+(br+40)*Math.cos(sA+(i+0.5)*pA),mp+(br+40)*Math.sin(sA+(i+0.5)*pA));
 	  } else {
-		if (i == 3 || i == 4 || i == 8) {
+		if (i == 3 || i == 4 || i == 7 || i == 8) {
 			ctx.fillText(i.toString(), mp+(br+25)*Math.cos(sA+(i+0.5)*pA),mp+(br+25)*Math.sin(sA+(i+0.5)*pA));
 		} else {
 			ctx.fillText(i.toString(), mp+(br+10)*Math.cos(sA+(i+0.5)*pA),mp+(br+10)*Math.sin(sA+(i+0.5)*pA));
@@ -468,7 +468,16 @@ var tooltips = [],
 		registerTooltip(ctx,{type:'circle',x:dots[i][0],y:dots[i][1],r:dots[i][2]},{label:dots[i][3]}); 
 	}
   
+ /* Save diagram */
+	function save() {
+		var save_nods = nods-2;
+		var canvas = document.getElementById("irrationalCanvas");
+		canvas.toBlob(function(blob) {
+			saveAs(blob, irrat_name+"_"+save_nods+".png");
+		});
+	}; 
   
+ 
 
 function GET(name) {
 		var result = (RegExp(name + '=' + '(.+?)(&|$)'). 

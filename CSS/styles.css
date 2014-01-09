@@ -1,0 +1,19 @@
+body {
+	background-color:black;
+}
+
+.button {
+	background-color:#fb0;
+	color: white;
+	border-radius: 3px;
+	padding:10px;
+	width:auto;
+	display:inline-block;
+	cursor:pointer;
+}
+
+
+.save {
+	margin-left:15px;
+	width:100px;
+}
