@@ -13,7 +13,13 @@
 <canvas id="irrationalCanvas" width="730" height="730">
 </canvas>
 <br>
+<div class="button" onclick="draw_diagram('pi')">Pi</div>
+<div class="button" onclick="draw_diagram('e')">e</div>
+<div class="button" onclick="draw_diagram('golden_ratio')">Golden ratio</div>
+<div class="button" onclick="draw_diagram('sqrt2')">Sqrt(2)</div>
+<br>
 <div class="button save" onclick="save()">Save as png</div>
+
 <br><br>
 <pre>
 	<code class="language-javascript">
